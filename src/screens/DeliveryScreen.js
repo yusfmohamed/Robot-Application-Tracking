@@ -129,13 +129,14 @@ export default function DeliveryScreen({ navigation }) {
 
       {/* Send Request Button */}
       <View style={styles.footer}>
-        <TouchableOpacity
-          style={[styles.sendBtn, !selectedDestination && styles.sendBtnDisabled]}
-          activeOpacity={0.85}
-          disabled={!selectedDestination}
-        >
-          <Text style={styles.sendText}>Send Request</Text>
-        </TouchableOpacity>
+<TouchableOpacity
+  style={[styles.sendBtn, !selectedDestination && styles.sendBtnDisabled]}
+  activeOpacity={0.85}
+  disabled={!selectedDestination}
+  onPress={() => navigation.navigate('Animation')}
+>
+  <Text style={styles.sendText}>Send Request</Text>
+</TouchableOpacity>
         <View style={styles.homeIndicator} />
       </View>
 
