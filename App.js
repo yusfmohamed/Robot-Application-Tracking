@@ -9,6 +9,7 @@ import PayloadDetailsScreen from './src/screens/PayloadDetailsScreen';
 import DeliveryScreen from './src/screens/DeliveryScreen';
 import TrackScreen from './src/screens/TrackScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
+import LocationScreen from './src/screens/LocationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name="Delivery" component={DeliveryScreen} />
         <Stack.Screen name="Track" component={TrackScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Location" component={LocationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

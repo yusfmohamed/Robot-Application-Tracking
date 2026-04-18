@@ -94,7 +94,7 @@ export default function PayloadDetailsScreen({ route, navigation }) {
         <TouchableOpacity
           style={styles.confirmBtn}
           activeOpacity={0.85}
-          onPress={() => navigation.navigate('Delivery')}
+          onPress={() => navigation.navigate('Location')}
         >
           <Text style={styles.confirmText}>Confirm</Text>
         </TouchableOpacity>
