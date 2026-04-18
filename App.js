@@ -4,7 +4,7 @@ import SplashScreen from './src/screens/SplashScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import HomeScreen from './src/screens/HomeScreen';
-import PayloadBrowsingScreen from './src/screens/PayloadBrowsingScreen';
+import OrderBrowsingScreen from './src/screens/OrderBrowsingScreen';
 import PayloadDetailsScreen from './src/screens/PayloadDetailsScreen';
 import DeliveryScreen from './src/screens/DeliveryScreen';
 import TrackScreen from './src/screens/TrackScreen';
@@ -20,7 +20,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="PayloadBrowsing" component={PayloadBrowsingScreen} />
+        <Stack.Screen name="OrderBrowsing" component={OrderBrowsingScreen} />
         <Stack.Screen name="PayloadDetails" component={PayloadDetailsScreen} />
         <Stack.Screen name="Delivery" component={DeliveryScreen} />
         <Stack.Screen name="Track" component={TrackScreen} />

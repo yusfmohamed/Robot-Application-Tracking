@@ -72,7 +72,7 @@ export default function PayloadBrowsingScreen({ navigation }) {
             <Path d="M8 2L2 8L8 14" stroke="#5B8DB8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </Svg>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Payload Browsing</Text>
+        <Text style={styles.headerTitle}>Order Browsing</Text>
       </View>
 
       {/* Search */}

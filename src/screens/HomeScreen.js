@@ -2,7 +2,7 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Image } from 'rea
 import Svg, { Rect, Circle, Path } from 'react-native-svg';
 
 export default function HomeScreen({ route, navigation }) {
-  const { username } = route.params;
+  const { username, email } = route.params;
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
@@ -12,6 +12,7 @@ export default function HomeScreen({ route, navigation }) {
         <Text style={styles.welcome}>
           Welcome, <Text style={styles.name}>{username}</Text>
         </Text>
+        <Text style={styles.homeLabel}>Home Page</Text>
       </View>
 
       {/* Search Bar */}
@@ -32,19 +33,46 @@ export default function HomeScreen({ route, navigation }) {
         />
       </View>
 
-      {/* Section Label */}
+      {/* Order Section */}
       <View style={styles.sectionRow}>
         <Svg width="18" height="18" viewBox="0 0 20 20">
-          <Path d="M3 10L10 3L17 10V17H13V13H7V17H3V10Z" fill="#5B8DB8" />
+          <Rect x="3" y="3" width="14" height="14" rx="2" stroke="#5B8DB8" strokeWidth="1.5" fill="none" />
+          <Path d="M7 7h6M7 10h6M7 13h4" stroke="#5B8DB8" strokeWidth="1.5" strokeLinecap="round" />
         </Svg>
-        <Text style={styles.sectionLabel}>Home Dashboard</Text>
+        <Text style={styles.sectionLabel}>Order</Text>
       </View>
+
+      {/* Order Card → navigates to PayloadBrowsing */}
+      <TouchableOpacity
+        style={styles.orderCard}
+        activeOpacity={0.85}
+        onPress={() => navigation.navigate('OrderBrowsing')}
+      >
+        <View style={styles.orderCardInner}>
+          <View style={styles.orderIconCircle}>
+            <Svg width="22" height="22" viewBox="0 0 20 20">
+              <Rect x="3" y="3" width="14" height="14" rx="2" stroke="#5B8DB8" strokeWidth="1.5" fill="none" />
+              <Path d="M7 7h6M7 10h6M7 13h4" stroke="#5B8DB8" strokeWidth="1.5" strokeLinecap="round" />
+            </Svg>
+          </View>
+          <View style={styles.orderTextGroup}>
+            <Text style={styles.orderTitle}>New Order</Text>
+            <Text style={styles.orderSub}>Browse and order items</Text>
+          </View>
+          <View style={styles.chevronCircle}>
+            <Svg width="10" height="10" viewBox="0 0 10 10">
+              <Path d="M3 1.5L7 5L3 8.5" stroke="#5B8DB8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            </Svg>
+          </View>
+        </View>
+      </TouchableOpacity>
+
 
       {/* Payload Card */}
       <TouchableOpacity
         style={styles.payloadCard}
         activeOpacity={0.85}
-        onPress={() => navigation.navigate('PayloadBrowsing')}
+        onPress={() => navigation.navigate('Delivery')}
       >
         <View style={styles.payloadIllustration}>
           <Image
@@ -81,29 +109,29 @@ export default function HomeScreen({ route, navigation }) {
         </View>
       </View>
 
-{/* Tab Bar */}
-<View style={styles.tabBar}>
-  <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Home', { username })}>
-    <Svg width="20" height="20" viewBox="0 0 20 20">
-      <Path d="M3 10L10 3L17 10V17H13V13H7V17H3V10Z" fill="#5B8DB8" />
-    </Svg>
-    <Text style={styles.tabLabelActive}>Home</Text>
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Track', { username })}>
-    <Svg width="20" height="20" viewBox="0 0 20 20">
-      <Rect x="3" y="3" width="14" height="14" rx="3" stroke="#A0C4D8" strokeWidth="1.5" fill="none" />
-      <Path d="M7 10h6M10 7v6" stroke="#A0C4D8" strokeWidth="1.5" strokeLinecap="round" />
-    </Svg>
-    <Text style={styles.tabLabel}>Track</Text>
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Profile', { username, email: route.params.email })}>
-    <Svg width="20" height="20" viewBox="0 0 20 20">
-      <Circle cx="10" cy="8" r="4" stroke="#A0C4D8" strokeWidth="1.5" fill="none" />
-      <Path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#A0C4D8" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-    </Svg>
-    <Text style={styles.tabLabel}>Profile</Text>
-  </TouchableOpacity>
-</View>
+      {/* Tab Bar */}
+      <View style={styles.tabBar}>
+        <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Home', { username, email })}>
+          <Svg width="20" height="20" viewBox="0 0 20 20">
+            <Path d="M3 10L10 3L17 10V17H13V13H7V17H3V10Z" fill="#5B8DB8" />
+          </Svg>
+          <Text style={styles.tabLabelActive}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Track', { username })}>
+          <Svg width="20" height="20" viewBox="0 0 20 20">
+            <Rect x="3" y="3" width="14" height="14" rx="3" stroke="#A0C4D8" strokeWidth="1.5" fill="none" />
+            <Path d="M7 10h6M10 7v6" stroke="#A0C4D8" strokeWidth="1.5" strokeLinecap="round" />
+          </Svg>
+          <Text style={styles.tabLabel}>Track</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Profile', { username, email })}>
+          <Svg width="20" height="20" viewBox="0 0 20 20">
+            <Circle cx="10" cy="8" r="4" stroke="#A0C4D8" strokeWidth="1.5" fill="none" />
+            <Path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#A0C4D8" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+          </Svg>
+          <Text style={styles.tabLabel}>Profile</Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Home indicator */}
       <View style={styles.homeIndicator} />
@@ -135,6 +163,12 @@ const styles = StyleSheet.create({
   name: {
     color: '#5B8DB8',
     fontWeight: 'bold',
+  },
+  homeLabel: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#1A3550',
+    marginTop: 6,
   },
 
   // Search
@@ -183,6 +217,45 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '500',
     color: '#1A3550',
+  },
+
+  // Order card
+  orderCard: {
+    marginHorizontal: 20,
+    marginBottom: 20,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    borderWidth: 0.5,
+    borderColor: '#C8DFF0',
+  },
+  orderCardInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    gap: 14,
+  },
+  orderIconCircle: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    backgroundColor: '#EAF4FB',
+    borderWidth: 0.5,
+    borderColor: '#C8DFF0',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  orderTextGroup: {
+    flex: 1,
+  },
+  orderTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#1A3550',
+    marginBottom: 2,
+  },
+  orderSub: {
+    fontSize: 12,
+    color: '#7AAAC8',
   },
 
   // Payload card
