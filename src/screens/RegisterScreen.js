@@ -8,7 +8,7 @@ export default function RegisterScreen({ navigation }) {
   const [password, setPassword] = useState('');
 
   const handleRegister = () => {
-    navigation.replace('Home', { username: username });
+  navigation.replace('Home', { username: username, email: email }); // ← add email
   };
 
   return (

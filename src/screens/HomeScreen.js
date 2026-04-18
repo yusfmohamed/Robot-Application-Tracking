@@ -81,29 +81,29 @@ export default function HomeScreen({ route, navigation }) {
         </View>
       </View>
 
-      {/* Tab Bar */}
-      <View style={styles.tabBar}>
-        <TouchableOpacity style={styles.tabItem}>
-          <Svg width="20" height="20" viewBox="0 0 20 20">
-            <Path d="M3 10L10 3L17 10V17H13V13H7V17H3V10Z" fill="#5B8DB8" />
-          </Svg>
-          <Text style={styles.tabLabelActive}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}>
-          <Svg width="20" height="20" viewBox="0 0 20 20">
-            <Rect x="3" y="3" width="14" height="14" rx="3" stroke="#A0C4D8" strokeWidth="1.5" fill="none" />
-            <Path d="M7 10h6M10 7v6" stroke="#A0C4D8" strokeWidth="1.5" strokeLinecap="round" />
-          </Svg>
-          <Text style={styles.tabLabel}>Track</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}>
-          <Svg width="20" height="20" viewBox="0 0 20 20">
-            <Circle cx="10" cy="8" r="4" stroke="#A0C4D8" strokeWidth="1.5" fill="none" />
-            <Path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#A0C4D8" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-          </Svg>
-          <Text style={styles.tabLabel}>Profile</Text>
-        </TouchableOpacity>
-      </View>
+{/* Tab Bar */}
+<View style={styles.tabBar}>
+  <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Home', { username })}>
+    <Svg width="20" height="20" viewBox="0 0 20 20">
+      <Path d="M3 10L10 3L17 10V17H13V13H7V17H3V10Z" fill="#5B8DB8" />
+    </Svg>
+    <Text style={styles.tabLabelActive}>Home</Text>
+  </TouchableOpacity>
+  <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Track', { username })}>
+    <Svg width="20" height="20" viewBox="0 0 20 20">
+      <Rect x="3" y="3" width="14" height="14" rx="3" stroke="#A0C4D8" strokeWidth="1.5" fill="none" />
+      <Path d="M7 10h6M10 7v6" stroke="#A0C4D8" strokeWidth="1.5" strokeLinecap="round" />
+    </Svg>
+    <Text style={styles.tabLabel}>Track</Text>
+  </TouchableOpacity>
+  <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Profile', { username, email: route.params.email })}>
+    <Svg width="20" height="20" viewBox="0 0 20 20">
+      <Circle cx="10" cy="8" r="4" stroke="#A0C4D8" strokeWidth="1.5" fill="none" />
+      <Path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#A0C4D8" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+    </Svg>
+    <Text style={styles.tabLabel}>Profile</Text>
+  </TouchableOpacity>
+</View>
 
       {/* Home indicator */}
       <View style={styles.homeIndicator} />
