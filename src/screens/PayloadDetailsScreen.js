@@ -24,7 +24,7 @@ export default function PayloadDetailsScreen({ route, navigation }) {
             <Path d="M8 2L2 8L8 14" stroke="#5B8DB8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </Svg>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Payload Details</Text>
+        <Text style={styles.headerTitle}>Order Details</Text>
       </View>
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>

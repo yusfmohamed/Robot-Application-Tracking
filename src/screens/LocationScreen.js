@@ -1,46 +1,31 @@
 import { useState } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity,
-  TextInput, ScrollView, KeyboardAvoidingView, Platform,
+  Image, ScrollView,
 } from 'react-native';
-import Svg, { Path, Circle } from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
-const COUNTRIES = ['Egypt', 'Saudi Arabia', 'UAE', 'Kuwait', 'Qatar', 'Jordan'];
-const CITIES = {
-  Egypt: ['Cairo', 'Alexandria', 'Giza', 'Luxor', 'Aswan'],
-  'Saudi Arabia': ['Riyadh', 'Jeddah', 'Mecca', 'Medina', 'Dammam'],
-  UAE: ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Fujairah'],
-  Kuwait: ['Kuwait City', 'Hawalli', 'Salmiya', 'Farwaniya'],
-  Qatar: ['Doha', 'Al Rayyan', 'Al Wakrah', 'Al Khor'],
-  Jordan: ['Amman', 'Zarqa', 'Irbid', 'Aqaba'],
-};
+// const PICKUP_OPTIONS = ['Aisle 3B', 'Aisle 1A', 'Aisle 2C', 'Warehouse A', 'Warehouse B'];
+const DESTINATION_OPTIONS = ['Station 1', 'Station 2'];
 
-export default function LocationScreen({ navigation }) {
-  const [countryOpen, setCountryOpen] = useState(false);
-  const [cityOpen, setCityOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [street, setStreet] = useState('');
-  const [zipCode, setZipCode] = useState('');
+export default function DeliveryScreen({ navigation }) {
+  const [pickupOpen, setPickupOpen] = useState(false);
+  const [destinationOpen, setDestinationOpen] = useState(false);
+  const [selectedPickup, setSelectedPickup] = useState('Aisle 3B');
+  const [selectedDestination, setSelectedDestination] = useState(null);
 
-  const handleCountry = (country) => {
-    setSelectedCountry(country);
-    setSelectedCity(null);
-    setCountryOpen(false);
+  const handlePickup = (option) => {
+    setSelectedPickup(option);
+    setPickupOpen(false);
   };
 
-  const handleCity = (city) => {
-    setSelectedCity(city);
-    setCityOpen(false);
+  const handleDestination = (option) => {
+    setSelectedDestination(option);
+    setDestinationOpen(false);
   };
-
-  const isComplete = selectedCountry && selectedCity && street && zipCode;
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
+    <View style={styles.container}>
 
       {/* Header */}
       <View style={styles.header}>
@@ -55,178 +40,73 @@ export default function LocationScreen({ navigation }) {
             />
           </Svg>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Location</Text>
+        <Text style={styles.headerTitle}>Delivery Request</Text>
       </View>
 
-      <ScrollView
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-      >
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
 
-        {/* Location Pin Icon */}
-        <View style={styles.iconContainer}>
-          <View style={styles.iconCircle}>
-            <Svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-              <Path
-                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
-                fill="#5B8DB8"
-                opacity="0.2"
-              />
-              <Path
-                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
-                stroke="#5B8DB8"
-                strokeWidth="1.5"
-                fill="none"
-              />
-              <Circle cx="12" cy="9" r="2.5" fill="#5B8DB8" />
-            </Svg>
-          </View>
-          <Text style={styles.iconTitle}>Set Your Location</Text>
-          <Text style={styles.iconSub}>Fill in your delivery address details</Text>
-        </View>
-
-        {/* Form Card */}
+        {/* Location Card */}
         <View style={styles.card}>
 
-          {/* Country Dropdown */}
-          <Text style={styles.fieldLabel}>Country</Text>
+ 
+          <View style={styles.divider} />
+
+          {/* Delivery Destination Dropdown */}
           <TouchableOpacity
             style={styles.dropdown}
-            onPress={() => { setCountryOpen(!countryOpen); setCityOpen(false); }}
+            onPress={() => { setDestinationOpen(!destinationOpen); setPickupOpen(false); }}
           >
-            <Text style={[styles.dropdownText, !selectedCountry && styles.placeholder]}>
-              {selectedCountry || 'Select Country'}
+            <Text style={[styles.dropdownText, !selectedDestination && styles.dropdownPlaceholder]}>
+              {selectedDestination || 'Delivery Destination'}
             </Text>
             <Svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-              <Path
-                d="M1 1L6 6L11 1"
-                stroke="#7AAAC8"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <Path d="M1 1L6 6L11 1" stroke="#7AAAC8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </Svg>
           </TouchableOpacity>
-          {countryOpen && (
+
+          {destinationOpen && (
             <View style={styles.dropdownList}>
-              {COUNTRIES.map(country => (
+              {DESTINATION_OPTIONS.map(option => (
                 <TouchableOpacity
-                  key={country}
-                  style={[styles.dropdownItem, selectedCountry === country && styles.dropdownItemActive]}
-                  onPress={() => handleCountry(country)}
+                  key={option}
+                  style={[styles.dropdownItem, selectedDestination === option && styles.dropdownItemActive]}
+                  onPress={() => handleDestination(option)}
                 >
-                  <Text style={[styles.dropdownItemText, selectedCountry === country && styles.dropdownItemTextActive]}>
-                    {country}
+                  <Text style={[styles.dropdownItemText, selectedDestination === option && styles.dropdownItemTextActive]}>
+                    {option}
                   </Text>
                 </TouchableOpacity>
               ))}
             </View>
           )}
-
-          <View style={styles.fieldDivider} />
-
-          {/* City Dropdown */}
-          <Text style={styles.fieldLabel}>City</Text>
-          <TouchableOpacity
-            style={[styles.dropdown, !selectedCountry && styles.dropdownDisabled]}
-            onPress={() => {
-              if (!selectedCountry) return;
-              setCityOpen(!cityOpen);
-              setCountryOpen(false);
-            }}
-          >
-            <Text style={[styles.dropdownText, !selectedCity && styles.placeholder]}>
-              {selectedCity || (selectedCountry ? 'Select City' : 'Select a country first')}
-            </Text>
-            <Svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-              <Path
-                d="M1 1L6 6L11 1"
-                stroke="#7AAAC8"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </Svg>
-          </TouchableOpacity>
-          {cityOpen && selectedCountry && (
-            <View style={styles.dropdownList}>
-              {CITIES[selectedCountry].map(city => (
-                <TouchableOpacity
-                  key={city}
-                  style={[styles.dropdownItem, selectedCity === city && styles.dropdownItemActive]}
-                  onPress={() => handleCity(city)}
-                >
-                  <Text style={[styles.dropdownItemText, selectedCity === city && styles.dropdownItemTextActive]}>
-                    {city}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          )}
-
-          <View style={styles.fieldDivider} />
-
-          {/* Street */}
-          <Text style={styles.fieldLabel}>Street Address</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="e.g. 12 El Tahrir Street"
-            placeholderTextColor="#A0C4D8"
-            value={street}
-            onChangeText={setStreet}
-          />
-
-          <View style={styles.fieldDivider} />
-
-          {/* Zip Code */}
-          <Text style={styles.fieldLabel}>Zip Code</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="e.g. 11511"
-            placeholderTextColor="#A0C4D8"
-            value={zipCode}
-            onChangeText={setZipCode}
-            keyboardType="numeric"
-          />
 
         </View>
 
-        {/* Summary card if filled */}
-        {isComplete && (
-          <View style={styles.summaryCard}>
-            <View style={styles.summaryRow}>
-              <Svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <Path
-                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
-                  fill="#5B8DB8"
-                  opacity="0.3"
-                />
-                <Circle cx="12" cy="9" r="2.5" fill="#5B8DB8" />
-              </Svg>
-              <Text style={styles.summaryText}>
-                {street}, {selectedCity}, {selectedCountry} {zipCode}
-              </Text>
-            </View>
-          </View>
-        )}
+        {/* Robot Image */}
+        <View style={styles.imageContainer}>
+          <Image
+            source={require('../../assets/delievery.png')}
+            style={styles.robotImage}
+            resizeMode="contain"
+          />
+        </View>
 
       </ScrollView>
 
-      {/* Save Button */}
+      {/* Send Request Button */}
       <View style={styles.footer}>
-        <TouchableOpacity
-          style={[styles.saveBtn, !isComplete && styles.saveBtnDisabled]}
-          activeOpacity={0.85}
-          disabled={!isComplete}
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.saveText}>Save Location</Text>
-        </TouchableOpacity>
+<TouchableOpacity
+  style={[styles.sendBtn, !selectedDestination && styles.sendBtnDisabled]}
+  activeOpacity={0.85}
+  disabled={!selectedDestination}
+  onPress={() => navigation.navigate('Animation')}
+>
+  <Text style={styles.sendText}>Send Request</Text>
+</TouchableOpacity>
         <View style={styles.homeIndicator} />
       </View>
 
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -262,33 +142,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
 
-  // Icon section
-  iconContainer: {
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  iconCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 0.5,
-    borderColor: '#C8DFF0',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 12,
-  },
-  iconTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1A3550',
-    marginBottom: 4,
-  },
-  iconSub: {
-    fontSize: 13,
-    color: '#7AAAC8',
-  },
-
   // Card
   card: {
     backgroundColor: '#FFFFFF',
@@ -296,20 +149,23 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#C8DFF0',
     padding: 18,
+    marginBottom: 20,
+  },
+  locationHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 14,
   },
-  fieldLabel: {
-    fontSize: 12,
+  locationTitle: {
+    fontSize: 16,
     fontWeight: '600',
-    color: '#7AAAC8',
-    marginBottom: 8,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    color: '#1A3550',
   },
-  fieldDivider: {
+  divider: {
     height: 0.5,
     backgroundColor: '#C8DFF0',
-    marginVertical: 16,
+    marginVertical: 10,
   },
 
   // Dropdown
@@ -317,31 +173,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#F0F6FB',
     borderWidth: 0.5,
     borderColor: '#C8DFF0',
     borderRadius: 12,
     paddingHorizontal: 14,
     paddingVertical: 14,
-  },
-  dropdownDisabled: {
-    opacity: 0.5,
+    backgroundColor: '#FAFCFE',
   },
   dropdownText: {
     fontSize: 15,
     color: '#1A3550',
     fontWeight: '500',
   },
-  placeholder: {
+  dropdownPlaceholder: {
     color: '#A0C4D8',
     fontWeight: '400',
   },
   dropdownList: {
     marginTop: 6,
-    backgroundColor: '#FFFFFF',
     borderWidth: 0.5,
     borderColor: '#C8DFF0',
     borderRadius: 12,
+    backgroundColor: '#FFFFFF',
     overflow: 'hidden',
   },
   dropdownItem: {
@@ -360,37 +213,16 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
-  // Input
-  input: {
-    backgroundColor: '#F0F6FB',
-    borderWidth: 0.5,
-    borderColor: '#C8DFF0',
-    borderRadius: 12,
-    paddingHorizontal: 14,
-    paddingVertical: 14,
-    fontSize: 15,
-    color: '#1A3550',
+  // Robot image
+  imageContainer: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    height: 600,
+    backgroundColor: '#DFF0FA',
   },
-
-  // Summary
-  summaryCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    borderWidth: 0.5,
-    borderColor: '#C8DFF0',
-    padding: 14,
-    marginBottom: 10,
-  },
-  summaryRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  summaryText: {
-    flex: 1,
-    fontSize: 13,
-    color: '#1A3550',
-    lineHeight: 20,
+  robotImage: {
+    width: '100%',
+    height: '100%',
   },
 
   // Footer
@@ -398,16 +230,16 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 10,
   },
-  saveBtn: {
+  sendBtn: {
     backgroundColor: '#5B8DB8',
     borderRadius: 16,
     paddingVertical: 16,
     alignItems: 'center',
   },
-  saveBtnDisabled: {
+  sendBtnDisabled: {
     backgroundColor: '#A0C4D8',
   },
-  saveText: {
+  sendText: {
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
