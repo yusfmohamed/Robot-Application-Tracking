@@ -5,11 +5,11 @@ import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import OrderBrowsingScreen from './src/screens/OrderBrowsingScreen';
-import PayloadDetailsScreen from './src/screens/PayloadDetailsScreen';
-import DeliveryScreen from './src/screens/DeliveryScreen';
+import OrderDetailsScreen from './src/screens/OrderDetailsScreen';
+import DeliveryScreen from './src/talabat/DeliveryScreen';
 import TrackScreen from './src/screens/TrackScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
-import LocationScreen from './src/screens/LocationScreen';
+import LocationScreen from './src/uber/LocationScreen';
 import AnimationScreen from './src/screens/AnimationScreen';
 
 const Stack = createNativeStackNavigator();
@@ -23,7 +23,7 @@ export default function App() {
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="OrderBrowsing" component={OrderBrowsingScreen} />
-        <Stack.Screen name="PayloadDetails" component={PayloadDetailsScreen} />
+        <Stack.Screen name="OrderDetails" component={OrderDetailsScreen} />
         <Stack.Screen name="Delivery" component={DeliveryScreen} />
         <Stack.Screen name="Track" component={TrackScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />

@@ -59,7 +59,7 @@ export default function PayloadBrowsingScreen({ navigation }) {
 
   const handleConfirm = () => {
     const selectedItems = ITEMS.filter(item => added.includes(item.id));
-    navigation.navigate('PayloadDetails', { selectedItems });
+    navigation.navigate('OrderDetails', { selectedItems });
   };
 
   return (
