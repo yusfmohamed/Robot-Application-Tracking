@@ -5,15 +5,24 @@ import {
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
+// hook for delivery API interaction
+import { useDelivery } from '../hooks/useDelivery';
+
 // const PICKUP_OPTIONS = ['Aisle 3B', 'Aisle 1A', 'Aisle 2C', 'Warehouse A', 'Warehouse B'];
 const DESTINATION_OPTIONS = ['Station 1', 'Station 2'];
 
-export default function DeliveryScreen({ navigation }) {
+export default function DeliveryScreen({ navigation, route }) {
+  const { selectedItems = [] } = route.params || {};
+  const itemCount = selectedItems.length;
+
   const [pickupOpen, setPickupOpen] = useState(false);
   const [destinationOpen, setDestinationOpen] = useState(false);
   const [selectedPickup, setSelectedPickup] = useState('Aisle 3B');
   const [selectedDestination, setSelectedDestination] = useState(null);
-
+  
+  // use the delivery hook to send requests
+  const { sendRequest, loading, error } = useDelivery();
+  
   const handlePickup = (option) => {
     setSelectedPickup(option);
     setPickupOpen(false);
@@ -22,6 +31,17 @@ export default function DeliveryScreen({ navigation }) {
   const handleDestination = (option) => {
     setSelectedDestination(option);
     setDestinationOpen(false);
+  };
+
+  const handleSendRequest = async () => {
+    if (!selectedDestination) return;
+    const result = await sendRequest(selectedDestination, itemCount);
+    if (result) {
+      navigation.navigate('Animation');  // only on success
+    } else {
+      // Show error to user (you can add a toast/alert here)
+      console.log('❌ Delivery request failed:', error);
+    }
   };
 
   return (
@@ -95,14 +115,14 @@ export default function DeliveryScreen({ navigation }) {
 
       {/* Send Request Button */}
       <View style={styles.footer}>
-<TouchableOpacity
-  style={[styles.sendBtn, !selectedDestination && styles.sendBtnDisabled]}
-  activeOpacity={0.85}
-  disabled={!selectedDestination}
-  onPress={() => navigation.navigate('Animation')}
->
-  <Text style={styles.sendText}>Send Request</Text>
-</TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.sendBtn, (!selectedDestination || loading) && styles.sendBtnDisabled]}
+          activeOpacity={0.85}
+          disabled={!selectedDestination || loading}
+          onPress={handleSendRequest}
+        >
+          <Text style={styles.sendText}>{loading ? 'Sending...' : 'Send Request'}</Text>
+        </TouchableOpacity>
         <View style={styles.homeIndicator} />
       </View>
 
