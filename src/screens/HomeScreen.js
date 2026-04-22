@@ -1,11 +1,11 @@
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Svg, { Rect, Circle, Path } from 'react-native-svg';
 
 export default function HomeScreen({ route, navigation }) {
   const { username, email } = route.params;
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <View style={styles.container}>
 
       {/* Header */}
       <View style={styles.header}>
@@ -24,41 +24,21 @@ export default function HomeScreen({ route, navigation }) {
         <Text style={styles.searchText}>Search shipments…</Text>
       </View>
 
-      {/* Hero Banner */}
-      <View style={styles.heroBanner}>
-        <Image
-          source={require('../../assets/home.png')}
-          style={styles.heroBannerImage}
-          resizeMode="cover"
-        />
-      </View>
-
-      {/* Order Section */}
-      <View style={styles.sectionRow}>
-        <Svg width="18" height="18" viewBox="0 0 20 20">
-          <Rect x="3" y="3" width="14" height="14" rx="2" stroke="#5B8DB8" strokeWidth="1.5" fill="none" />
-          <Path d="M7 7h6M7 10h6M7 13h4" stroke="#5B8DB8" strokeWidth="1.5" strokeLinecap="round" />
-        </Svg>
-        <Text style={styles.sectionLabel}>Order</Text>
-      </View>
-
-      {/* Order Card → navigates to PayloadBrowsing */}
+      {/* Order Card */}
       <TouchableOpacity
         style={styles.orderCard}
         activeOpacity={0.85}
         onPress={() => navigation.navigate('OrderBrowsing')}
       >
-        <View style={styles.orderCardInner}>
-          <View style={styles.orderIconCircle}>
-            <Svg width="22" height="22" viewBox="0 0 20 20">
-              <Rect x="3" y="3" width="14" height="14" rx="2" stroke="#5B8DB8" strokeWidth="1.5" fill="none" />
-              <Path d="M7 7h6M7 10h6M7 13h4" stroke="#5B8DB8" strokeWidth="1.5" strokeLinecap="round" />
-            </Svg>
-          </View>
-          <View style={styles.orderTextGroup}>
-            <Text style={styles.orderTitle}>New Order</Text>
-            <Text style={styles.orderSub}>Browse and order items</Text>
-          </View>
+        <View style={styles.orderIllustration}>
+          <Image
+            source={require('../../assets/home.png')}
+            style={styles.orderImage}
+            resizeMode="cover"
+          />
+        </View>
+        <View style={styles.cardAction}>
+          <Text style={styles.cardLabel}>New Order</Text>
           <View style={styles.chevronCircle}>
             <Svg width="10" height="10" viewBox="0 0 10 10">
               <Path d="M3 1.5L7 5L3 8.5" stroke="#5B8DB8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
@@ -66,7 +46,6 @@ export default function HomeScreen({ route, navigation }) {
           </View>
         </View>
       </TouchableOpacity>
-
 
       {/* Payload Card */}
       <TouchableOpacity
@@ -81,8 +60,8 @@ export default function HomeScreen({ route, navigation }) {
             resizeMode="contain"
           />
         </View>
-        <View style={styles.payloadAction}>
-          <Text style={styles.payloadLabel}>New Payload</Text>
+        <View style={styles.cardAction}>
+          <Text style={styles.cardLabel}>New Payload</Text>
           <View style={styles.chevronCircle}>
             <Svg width="10" height="10" viewBox="0 0 10 10">
               <Path d="M3 1.5L7 5L3 8.5" stroke="#5B8DB8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
@@ -133,10 +112,10 @@ export default function HomeScreen({ route, navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* Home indicator */}
+      {/* Home Indicator */}
       <View style={styles.homeIndicator} />
 
-    </ScrollView>
+    </View>
   );
 }
 
@@ -144,9 +123,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#EAF4FB',
-  },
-  content: {
-    paddingBottom: 40,
+    paddingBottom: 20,
   },
 
   // Header
@@ -190,75 +167,30 @@ const styles = StyleSheet.create({
     color: '#A0C4D8',
   },
 
-  // Hero Banner
-  heroBanner: {
-    marginHorizontal: 20,
-    marginBottom: 20,
-    borderRadius: 18,
-    overflow: 'hidden',
-    height: 160,
-    backgroundColor: '#C8DDF0',
-  },
-  heroBannerImage: {
-    width: '120%',
-    height: '120%',
-    alignSelf: 'center',
-  },
-
-  // Section label
-  sectionRow: {
-    paddingHorizontal: 20,
-    paddingBottom: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  sectionLabel: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#1A3550',
-  },
-
-  // Order card
+  // Order card — full cover image
   orderCard: {
     marginHorizontal: 20,
-    marginBottom: 20,
+    marginBottom: 14,
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
+    borderRadius: 18,
     borderWidth: 0.5,
     borderColor: '#C8DFF0',
+    overflow: 'hidden',
   },
-  orderCardInner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    gap: 14,
+  orderIllustration: {
+    height: 160,
+    backgroundColor: '#C8DDF0',
+    overflow: 'hidden',
+    borderTopLeftRadius: 18,
+    borderTopRightRadius: 18,
   },
-  orderIconCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 12,
-    backgroundColor: '#EAF4FB',
-    borderWidth: 0.5,
-    borderColor: '#C8DFF0',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  orderTextGroup: {
-    flex: 1,
-  },
-  orderTitle: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: '#1A3550',
-    marginBottom: 2,
-  },
-  orderSub: {
-    fontSize: 12,
-    color: '#7AAAC8',
+  orderImage: {
+    width: '120%',
+    height: '120%',
+    transform: [{ translateX: -30 }, { translateY: 10 }],
   },
 
-  // Payload card
+  // Payload card — contained image
   payloadCard: {
     marginHorizontal: 20,
     marginBottom: 14,
@@ -269,7 +201,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   payloadIllustration: {
-    height: 150,
+    height: 130,
     backgroundColor: '#E8F4FC',
     alignItems: 'center',
     justifyContent: 'center',
@@ -278,13 +210,15 @@ const styles = StyleSheet.create({
     width: '90%',
     height: '100%',
   },
-  payloadAction: {
+
+  // Shared card action row
+  cardAction: {
     padding: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  payloadLabel: {
+  cardLabel: {
     fontSize: 16,
     fontWeight: '500',
     color: '#1A3550',
@@ -340,7 +274,7 @@ const styles = StyleSheet.create({
   // Tab bar
   tabBar: {
     marginHorizontal: 20,
-    marginTop: 20,
+    marginTop: 14,
     backgroundColor: '#FFFFFF',
     borderRadius: 18,
     borderWidth: 0.5,
@@ -369,6 +303,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#C8DFF0',
     borderRadius: 2,
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: 16,
   },
 });
